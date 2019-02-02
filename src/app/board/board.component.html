@@ -1,7 +1,9 @@
 <div class="container board">
   <div class="row" *ngFor="let row of board">
     <div class="col-sm board__cell" 
-        *ngFor="let cell of row">
+        *ngFor="let cell of row"
+        (mouseenter)="highlightActiveColumn(cell)" 
+        [ngClass]="{'board__cell-active': cell.col === highlightedColumn}">
     </div>
   </div>
 </div>

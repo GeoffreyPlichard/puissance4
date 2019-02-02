@@ -10,11 +10,22 @@ import { BoardConstants } from './board';
 export class BoardComponent implements OnInit {
 
   public board = [];
+  public highlightedColumn = "";
 
   constructor(private boardService: BoardService) { }
 
   ngOnInit() {
     this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
+  }
+
+
+  /**
+   * Highlight the cell column
+   * @param cell hovered cell
+   */
+
+  public highlightActiveColumn(cell) {
+    this.highlightedColumn = cell.col;
   }
 
 }
