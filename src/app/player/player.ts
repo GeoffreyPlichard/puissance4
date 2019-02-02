@@ -1,6 +1,3 @@
-export interface Player {
-}
-
 export class Player {
 
     public score: number;

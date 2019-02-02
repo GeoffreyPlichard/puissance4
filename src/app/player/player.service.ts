@@ -8,7 +8,9 @@ export class PlayerService {
 
   public players = [];
 
-  constructor() { }
+  constructor() { 
+    this.initPlayers();
+  }
 
   public initPlayers() {
     let player1: Player = new Player("Joueur 1", "r", true);
@@ -16,5 +18,12 @@ export class PlayerService {
 
     this.players.push(player1, player2);
   }
-  
+
+  public getPlayingPlayer() {
+    for(let player of this.players) {
+        if(player.isPlaying === true) {
+            return player;
+        }
+    }
+  }
 }
