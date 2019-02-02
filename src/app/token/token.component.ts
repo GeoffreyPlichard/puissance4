@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-token',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./token.component.scss']
 })
 export class TokenComponent implements OnInit {
+
+  @Input() tokenColor: string;
 
   constructor() { }
 
