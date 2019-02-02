@@ -16,11 +16,17 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
+    this.boardService.generateTokensPerColumn(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
   }
 
   public addToken(cell) {
     let targetedColumn = cell.y;
-    this.board[5][cell.y].hasToken = true;
+    let tokensLeftForTargetedColumn = this.boardService.tokensPerColumn;
+
+    if(tokensLeftForTargetedColumn[targetedColumn] > 0) {
+      this.board[tokensLeftForTargetedColumn[targetedColumn] - 1][cell.y].hasToken = true;
+      this.boardService.tokensPerColumn[targetedColumn] --;
+    }
   }
 
 

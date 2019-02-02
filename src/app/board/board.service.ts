@@ -7,6 +7,7 @@ import { Cell } from './board';
 export class BoardService {
 
   public board = [];
+  public tokensPerColumn = [];
 
   constructor() { }
 
@@ -24,6 +25,18 @@ export class BoardService {
       }
     }
     return this.board;
+  }
+
+
+  /**
+   * Generate an array with the number of tokens available for each column
+   * @param row number of rows
+   * @param col number of columns
+   */
+  public generateTokensPerColumn(row: number, col: number) {
+    for(let i = 0; i < col; i++) {
+      this.tokensPerColumn[i] = row;
+    }
   }
 
 
