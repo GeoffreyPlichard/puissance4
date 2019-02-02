@@ -2,8 +2,10 @@
   <div class="row" *ngFor="let row of board">
     <div class="col-sm board__cell" 
         *ngFor="let cell of row"
+        (click)="addToken(cell)"
         (mouseenter)="highlightActiveColumn(cell)" 
         [ngClass]="{'board__cell-active': cell.col === highlightedColumn}">
+      <app-token *ngIf="cell.hasToken"></app-token>
     </div>
   </div>
 </div>

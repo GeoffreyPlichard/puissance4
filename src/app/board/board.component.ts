@@ -18,6 +18,11 @@ export class BoardComponent implements OnInit {
     this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
   }
 
+  public addToken(cell) {
+    let targetedColumn = cell.y;
+    this.board[5][cell.y].hasToken = true;
+  }
+
 
   /**
    * Highlight the cell column
