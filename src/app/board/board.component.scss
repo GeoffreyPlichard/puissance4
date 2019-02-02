@@ -1,0 +1,12 @@
+.board {
+    cursor: pointer;
+
+    &__cell {
+        padding: 20px;
+        height: 80px;
+        
+        &-active {
+            background-color: #ccc;
+        }
+    }
+}

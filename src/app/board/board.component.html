@@ -1,3 +1,7 @@
-<p>
-  board works!
-</p>
+<div class="container board">
+  <div class="row" *ngFor="let row of board">
+    <div class="col-sm board__cell" 
+        *ngFor="let cell of row">
+    </div>
+  </div>
+</div>

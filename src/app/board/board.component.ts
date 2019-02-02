@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BoardService } from './board.service';
+import { BoardConstants } from './board';
 
 @Component({
   selector: 'app-board',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  public board = [];
+
+  constructor(private boardService: BoardService) { }
 
   ngOnInit() {
+    this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
   }
 
 }
