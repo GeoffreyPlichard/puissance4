@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardService } from './board.service';
 import { BoardConstants } from './board';
+import { PlayerService } from '../player/player.service';
+import { Player } from '../player/player';
 
 @Component({
   selector: 'app-board',
@@ -11,12 +13,14 @@ export class BoardComponent implements OnInit {
 
   public board = [];
   public highlightedColumn = "";
+  public playingPlayer: Player;
 
-  constructor(private boardService: BoardService) { }
+  constructor(private boardService: BoardService, private playerService: PlayerService) { }
 
   ngOnInit() {
     this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
     this.boardService.generateTokensPerColumn(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
+    this.playingPlayer = this.playerService.getPlayingPlayer();
   }
 
   public addToken(cell) {

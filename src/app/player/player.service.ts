@@ -8,9 +8,7 @@ export class PlayerService {
 
   public players = [];
 
-  constructor() { 
-    this.initPlayers();
-  }
+  constructor() {}
 
   public initPlayers() {
     let player1: Player = new Player("Joueur 1", "r", true);
@@ -24,6 +22,12 @@ export class PlayerService {
         if(player.isPlaying === true) {
             return player;
         }
+    }
+  }
+
+  public switchPlayer() {
+    for(let player of this.players) {
+      player.isPlaying === true ? player.isPlaying = false : player.isPlaying = true;
     }
   }
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Player } from './player/player';
 import { PlayerService } from './player/player.service';
 
 @Component({
@@ -9,11 +8,11 @@ import { PlayerService } from './player/player.service';
 })
 export class AppComponent {
   title = 'P4';
-  public playingPlayer: Player;
 
-  constructor(private playerService: PlayerService) {}
-
+  constructor(private playerService: PlayerService) {
+  }
+  
   ngOnInit() {
-    this.playingPlayer = this.playerService.getPlayingPlayer();
+    this.playerService.initPlayers();
   }
 }
