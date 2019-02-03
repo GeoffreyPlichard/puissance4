@@ -1,4 +1,5 @@
 @import '../../styles/abstracts/variables';
+@import '../../styles/abstracts/mixins';
 @import '../../styles/base/animations';
 
 .token {
@@ -11,6 +12,11 @@
     width: 6rem;
     height: 6rem;
     border-radius: 50%;
+
+    @include respond(tab-port) {
+        width: 4rem;
+        height: 4rem;
+    }
 
     &-red {
         background: radial-gradient(circle at 1rem 1rem, $color-red, $color-black);
