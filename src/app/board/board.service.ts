@@ -62,7 +62,6 @@ export class BoardService {
    */
   public checkIfPlayerWon() {
       let playerTokens = new PlayerTokens(0, 0, 0, 0);
-      // console.log("PLAYER", playerTokens);
 
       // We loop 3 times to check 3 levels around the current cell
       for(let i = 1; i <=3; i++) {
@@ -75,11 +74,11 @@ export class BoardService {
         this.checkLeftUp(this.targetedCell, playerTokens, i);
       }
 
-      //  console.log("PLAYER APRES", playerTokens);
-
        return this.isConnectFour(playerTokens);
 
   }
+
+  // TODO REFACTOR !
 
   public checkLeft(currentCell, playerTokens, index) {
     // console.log("CHECK LEFT");

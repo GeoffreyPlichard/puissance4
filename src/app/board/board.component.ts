@@ -62,7 +62,7 @@ export class BoardComponent implements OnInit {
     let targetedColumn = cell.x;
     let tokensLeftForTargetedColumn = this.boardService.tokensPerColumn;
     
-    // Check if the column is not full
+    // If the column is not full
     if(tokensLeftForTargetedColumn[targetedColumn] > 0) {
       let targetedCell = this.board[tokensLeftForTargetedColumn[targetedColumn] - 1][targetedColumn];
       targetedCell.hasToken = true;

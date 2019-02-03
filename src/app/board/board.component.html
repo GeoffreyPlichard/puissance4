@@ -11,12 +11,14 @@
 
 <div class="container board">
   <div class="row" *ngFor="let row of board">
-    <div class="col-sm board__cell" 
+    <div class="col board__cell" 
         *ngFor="let cell of row"
         (click)="addToken(cell)"
         (mouseenter)="highlightActiveColumn(cell)" 
         [ngClass]="{'board__cell-active': cell.col === highlightedColumn}">
-      <app-token *ngIf="cell.hasToken" (valueChange)="updatePlayingPlayer($event)"></app-token>
+      <div class="board__token-hole">
+        <app-token *ngIf="cell.hasToken" (valueChange)="updatePlayingPlayer($event)"></app-token>
+      </div>
     </div>
   </div>
 </div>

@@ -1,6 +1,8 @@
 .board {
     cursor: pointer;
     overflow: hidden;
+    background-color: #0424ac;
+    border-radius: 3px;
 
     &__cell {
         padding: 20px;
@@ -9,6 +11,14 @@
         &-active {
             background-color: #ccc;
         }
+    }
+
+    &__token-hole {
+        background-color: #fff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
     }
 }
 
