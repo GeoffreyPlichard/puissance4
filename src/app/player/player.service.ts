@@ -17,6 +17,10 @@ export class PlayerService {
     this.players.push(player1, player2);
   }
 
+  public getPlayers() {
+    return this.players;
+  }
+
   public getPlayingPlayer() {
     for(let player of this.players) {
         if(player.isPlaying === true) {

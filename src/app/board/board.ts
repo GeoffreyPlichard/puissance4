@@ -3,7 +3,7 @@ import { Player } from '../player/player';
 export class BoardConstants {
     public static get BOARD_ROWS(): number { return 6 }
     public static get BOARD_COLUMNS(): number { return 7 }
-    public static get BOARD_TOKENS(): number { return 21 }
+    public static get BOARD_TOKENS(): number { return 42 }
 }
 
 export interface Board {

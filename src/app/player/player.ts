@@ -1,6 +1,6 @@
 export class Player {
 
-    public score: number;
+    public score: number = 0;
 
     constructor(public pseudo: string, 
                 public color: string, 

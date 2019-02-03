@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Cell } from './board';
+import { Cell, BoardConstants } from './board';
 import { PlayerService } from '../player/player.service';
-import { PlayerTokens } from '../player/player';
+import { PlayerTokens, Player } from '../player/player';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,13 @@ export class BoardService {
 
   public board = [];
   public tokensPerColumn = [];
+  public playingPlayer: Player;
+  public targetedCell: Cell;
+  public totalTokens: number = BoardConstants.BOARD_TOKENS;
 
-  constructor(private playerService: PlayerService) { }
+  constructor(private playerService: PlayerService) {
+
+  }
 
 
   /**
@@ -27,8 +32,11 @@ export class BoardService {
         this.board[i].push(new Cell("col-" + j, j, i));
       }
     }
-    console.log(this.board);
     return this.board;
+  }
+
+  public removeTokenFromTotal() {
+    this.totalTokens --;
   }
 
 
@@ -43,26 +51,29 @@ export class BoardService {
     }
   }
 
-  public checkIfPlayerWon(currentCell, playingPlayer) {
+
+  /**
+   * Loop around the targeted cell to check if the player has won
+   * @returns un boolean
+   */
+  public checkIfPlayerWon() {
       let playerTokens = new PlayerTokens(0, 0, 0, 0);
       console.log("PLAYER", playerTokens);
 
       // We loop 3 times to check 3 levels around the current cell
       for(let i = 1; i <=3; i++) {
-        this.checkLeft(currentCell, playerTokens, i);
-        this.checkLeftDown(currentCell, playerTokens, i);
-        this.checkRightDown(currentCell, playerTokens, i);
-        this.checkRight(currentCell, playerTokens, i);
-        this.checkRightUp(currentCell, playerTokens, i);
-        this.checkUp(currentCell, playerTokens, i);
-        this.checkLeftUp(currentCell, playerTokens, i);
-      }
-
-      if(this.isConnectFour(playerTokens)) {
-        alert('YOU WON BITCH');
+        this.checkLeft(this.targetedCell, playerTokens, i);
+        this.checkLeftDown(this.targetedCell, playerTokens, i);
+        this.checkRightDown(this.targetedCell, playerTokens, i);
+        this.checkRight(this.targetedCell, playerTokens, i);
+        this.checkRightUp(this.targetedCell, playerTokens, i);
+        this.checkUp(this.targetedCell, playerTokens, i);
+        this.checkLeftUp(this.targetedCell, playerTokens, i);
       }
 
        console.log("PLAYER APRES", playerTokens);
+
+       return this.isConnectFour(playerTokens);
 
   }
 
@@ -178,6 +189,20 @@ export class BoardService {
       }
     }
     return false;
+  }
+
+
+  /**
+   * Check if the game is over
+   */
+  public isEnd() {
+    console.log("TOTAL TOKENS", this.totalTokens);
+    if(this.checkIfPlayerWon()) {
+      this.playingPlayer.score ++;
+      alert(`${this.playingPlayer.pseudo} WON ! The game is over.`);
+    } else if(this.totalTokens <= 0) {
+      alert("Egalité ! The game is over.");
+    }
   }
 
 

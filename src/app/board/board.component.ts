@@ -14,12 +14,14 @@ export class BoardComponent implements OnInit {
   public board = [];
   public highlightedColumn = "";
   public playingPlayer: Player;
+  public players;
 
   constructor(private boardService: BoardService, private playerService: PlayerService) { }
 
   ngOnInit() {
     this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
     this.boardService.generateTokensPerColumn(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
+    this.players = this.playerService.getPlayers();
     this.playingPlayer = this.playerService.getPlayingPlayer();
   }
 
@@ -33,12 +35,19 @@ export class BoardComponent implements OnInit {
       targetedCell.hasToken = true;
       this.playingPlayer = this.playerService.getPlayingPlayer();
       targetedCell.player = this.playingPlayer;
+
       this.boardService.tokensPerColumn[targetedColumn] --;
-      this.boardService.checkIfPlayerWon(targetedCell, this.playingPlayer);
+      this.boardService.removeTokenFromTotal();
+      this.boardService.targetedCell = targetedCell;
+      this.boardService.playingPlayer = this.playerService.getPlayingPlayer();
+      this.boardService.isEnd();
     }
 
   }
 
+  public getTokenLeft() {
+    return this.boardService.totalTokens;
+  }
 
   /**
    * Highlight the cell column

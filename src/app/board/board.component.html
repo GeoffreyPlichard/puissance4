@@ -1,4 +1,5 @@
-<p>{{playingPlayer.pseudo}} joue</p> 
+<div *ngFor="let player of players">{{player.pseudo}}: {{player.score}}</div>
+<p>{{playingPlayer.pseudo}} joue. Il reste {{ getTokenLeft() }} jetons</p> 
 <div class="container board">
   <div class="row" *ngFor="let row of board">
     <div class="col-sm board__cell" 
