@@ -1,7 +1,9 @@
+@import '../../styles/abstracts/variables';
+
 .board {
     cursor: pointer;
     overflow: hidden;
-    background-color: #0424ac;
+    background-color: $board-color;
     border-radius: 3px;
 
     &__cell {
