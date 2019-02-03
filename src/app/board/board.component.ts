@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { BoardService } from './board.service';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+
 import { BoardConstants } from './board';
-import { PlayerService } from '../player/player.service';
 import { Player } from '../player/player';
+
+import { BoardService } from './board.service';
+import { PlayerService } from '../player/player.service';
 
 @Component({
   selector: 'app-board',
@@ -15,14 +18,22 @@ export class BoardComponent implements OnInit {
   public highlightedColumn = "";
   public playingPlayer: Player;
   public players;
+  @ViewChild('playAgainTemplate') playAgainModal: TemplateRef<any>;
+  public modalRef: BsModalRef;
 
-  constructor(private boardService: BoardService, private playerService: PlayerService) { }
+
+
+  constructor(private boardService: BoardService, private playerService: PlayerService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
     this.boardService.generateTokensPerColumn(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
     this.players = this.playerService.getPlayers();
     this.playingPlayer = this.playerService.getPlayingPlayer();
+  }
+
+  public openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
   public addToken(cell) {

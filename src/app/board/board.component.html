@@ -1,5 +1,7 @@
 <div *ngFor="let player of players">{{player.pseudo}}: {{player.score}}</div>
 <p>{{playingPlayer.pseudo}} joue. Il reste {{ getTokenLeft() }} jetons</p> 
+<button type="button" class="btn btn-info" 
+        (click)="openModal(playAgainTemplate)">Create template modal</button>
 <div class="container board">
   <div class="row" *ngFor="let row of board">
     <div class="col-sm board__cell" 
@@ -11,3 +13,16 @@
     </div>
   </div>
 </div>
+
+<ng-template #playAgainTemplate>
+  <div class="modal-header">
+      <h4 class="modal-title pull-left">Machin a gagné.</h4>
+      <button type="button" class="close pull-right" 
+              aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  <div class="modal-body">
+      Voulez-vous recommencer ?
+  </div>
+</ng-template>

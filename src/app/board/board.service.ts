@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild, TemplateRef } from '@angular/core';
+
 import { Cell, BoardConstants } from './board';
 import { PlayerService } from '../player/player.service';
 import { PlayerTokens, Player } from '../player/player';
+
 
 @Injectable({
   providedIn: 'root'
