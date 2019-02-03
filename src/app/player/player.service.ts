@@ -30,4 +30,6 @@ export class PlayerService {
       player.isPlaying === true ? player.isPlaying = false : player.isPlaying = true;
     }
   }
+
+
 }
