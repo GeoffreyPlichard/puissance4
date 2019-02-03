@@ -28,6 +28,7 @@ export class BoardService {
    * @returns The game board
    */
   public generateBoard(row: number, col: number) {
+    this.board = [];
     for(let i = 0; i < row; i++) {
       this.board.push([]);
       for(let j = 0; j < col; j++) {
@@ -48,6 +49,7 @@ export class BoardService {
    * @param col number of columns
    */
   public generateTokensPerColumn(row: number, col: number) {
+    this.tokensPerColumn = [];
     for(let i = 0; i < col; i++) {
       this.tokensPerColumn[i] = row;
     }
@@ -60,7 +62,7 @@ export class BoardService {
    */
   public checkIfPlayerWon() {
       let playerTokens = new PlayerTokens(0, 0, 0, 0);
-      console.log("PLAYER", playerTokens);
+      // console.log("PLAYER", playerTokens);
 
       // We loop 3 times to check 3 levels around the current cell
       for(let i = 1; i <=3; i++) {
@@ -73,19 +75,19 @@ export class BoardService {
         this.checkLeftUp(this.targetedCell, playerTokens, i);
       }
 
-       console.log("PLAYER APRES", playerTokens);
+      //  console.log("PLAYER APRES", playerTokens);
 
        return this.isConnectFour(playerTokens);
 
   }
 
   public checkLeft(currentCell, playerTokens, index) {
-    console.log("CHECK LEFT");
-    console.log("CURRENT CELL", currentCell);
-    console.log("PLAYER TOKENS", playerTokens);
+    // console.log("CHECK LEFT");
+    // console.log("CURRENT CELL", currentCell);
+    // console.log("PLAYER TOKENS", playerTokens);
     if(currentCell.x - index >= 0) {
       let leftCell = this.board[currentCell.y][currentCell.x - index];
-      console.log("LEFT CELL", leftCell);
+      // console.log("LEFT CELL", leftCell);
       if(leftCell.player && leftCell.player.pseudo === currentCell.player.pseudo) {
         playerTokens["LR"] += 1;
       }
@@ -93,13 +95,13 @@ export class BoardService {
   }
 
   public checkLeftDown(currentCell, playerTokens, index) {
-    console.log("CHECK LEFT DOWN");
-    console.log("CURRENT CELL", currentCell);
-    console.log("PLAYER TOKENS", playerTokens);
+    // console.log("CHECK LEFT DOWN");
+    // console.log("CURRENT CELL", currentCell);
+    // console.log("PLAYER TOKENS", playerTokens);
     if(currentCell.x - index >= 0) {
       if(currentCell.y - index >= 0) {
         let leftDownCell = this.board[currentCell.y - index][currentCell.x - index];
-        console.log("LEFT DOWN CELL", leftDownCell);
+        // console.log("LEFT DOWN CELL", leftDownCell);
         if(leftDownCell.player && leftDownCell.player.pseudo === currentCell.player.pseudo) {
           playerTokens["LDRU"] += 1;
         }
@@ -108,13 +110,13 @@ export class BoardService {
   }
 
   public checkRightDown(currentCell, playerTokens, index) {
-    console.log("CHECK RIGHT DOWN");
-    console.log("CURRENT CELL", currentCell);
-    console.log("PLAYER TOKENS", playerTokens);
+    // console.log("CHECK RIGHT DOWN");
+    // console.log("CURRENT CELL", currentCell);
+    // console.log("PLAYER TOKENS", playerTokens);
     if(currentCell.x + index < 7) {
       if(currentCell.y - index >= 0) {
         let rightDownCell = this.board[currentCell.y - index][currentCell.x + index];
-        console.log("RIGHT DOWN CELL", rightDownCell);
+        // console.log("RIGHT DOWN CELL", rightDownCell);
         if(rightDownCell.player && rightDownCell.player.pseudo === currentCell.player.pseudo) {
           playerTokens["LURD"] += 1;
         }
@@ -123,12 +125,12 @@ export class BoardService {
   }
 
   public checkRight(currentCell, playerTokens, index) {
-    console.log("CHECK RIGHT");
-    console.log("CURRENT CELL", currentCell);
-    console.log("PLAYER TOKENS", playerTokens);
+    // console.log("CHECK RIGHT");
+    // console.log("CURRENT CELL", currentCell);
+    // console.log("PLAYER TOKENS", playerTokens);
     if(currentCell.x + index < 7) {
       let rightCell = this.board[currentCell.y][currentCell.x + index];
-      console.log("RIGHT CELL", rightCell);
+      // console.log("RIGHT CELL", rightCell);
       if(rightCell.player && rightCell.player.pseudo === currentCell.player.pseudo) {
         playerTokens["LR"] += 1;
       }
@@ -136,13 +138,13 @@ export class BoardService {
   }
 
   public checkRightUp(currentCell, playerTokens, index) {
-    console.log("CHECK RIGHT UP");
-    console.log("CURRENT CELL", currentCell);
-    console.log("PLAYER TOKENS", playerTokens);
+    // console.log("CHECK RIGHT UP");
+    // console.log("CURRENT CELL", currentCell);
+    // console.log("PLAYER TOKENS", playerTokens);
     if(currentCell.x + index < 7) {
       if(currentCell.y + index < 6) {
         let rightUpCell = this.board[currentCell.y + index][currentCell.x + index];
-        console.log("RIGHT UP", rightUpCell);
+        // console.log("RIGHT UP", rightUpCell);
         if(rightUpCell.player && rightUpCell.player.pseudo === currentCell.player.pseudo) {
           playerTokens["LDRU"] += 1;
         }
@@ -151,12 +153,12 @@ export class BoardService {
   }
 
   public checkUp(currentCell, playerTokens, index) {
-    console.log("CHECK UP");
-    console.log("CURRENT CELL", currentCell);
-    console.log("PLAYER TOKENS", playerTokens);
+    // console.log("CHECK UP");
+    // console.log("CURRENT CELL", currentCell);
+    // console.log("PLAYER TOKENS", playerTokens);
     if(currentCell.y + index < 6) {
       let upCell = this.board[currentCell.y + index][currentCell.x];
-      console.log("UP", upCell);
+      // console.log("UP", upCell);
       if(upCell.player && upCell.player.pseudo === currentCell.player.pseudo) {
         playerTokens["DU"] += 1;
       }
@@ -164,13 +166,13 @@ export class BoardService {
   }
 
   public checkLeftUp(currentCell, playerTokens, index) {
-    console.log("CHECK LEFT UP");
-    console.log("CURRENT CELL", currentCell);
-    console.log("PLAYER TOKENS", playerTokens);
+    // console.log("CHECK LEFT UP");
+    // console.log("CURRENT CELL", currentCell);
+    // console.log("PLAYER TOKENS", playerTokens);
     if(currentCell.x - index >= 0) {
       if(currentCell.y + index < 6) {
         let leftUpCell = this.board[currentCell.y + index][currentCell.x - index];
-        console.log("LEFT UP", leftUpCell);
+        // console.log("LEFT UP", leftUpCell);
         if(leftUpCell.player && leftUpCell.player.pseudo === currentCell.player.pseudo) {
           playerTokens["LURD"] += 1;
         }
@@ -192,21 +194,5 @@ export class BoardService {
     }
     return false;
   }
-
-
-  /**
-   * Check if the game is over
-   */
-  public isEnd() {
-    console.log("TOTAL TOKENS", this.totalTokens);
-    if(this.checkIfPlayerWon()) {
-      this.playingPlayer.score ++;
-      alert(`${this.playingPlayer.pseudo} WON ! The game is over.`);
-    } else if(this.totalTokens <= 0) {
-      alert("Egalité ! The game is over.");
-    }
-  }
-
-
 
 }

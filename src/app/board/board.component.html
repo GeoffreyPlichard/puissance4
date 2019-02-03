@@ -1,7 +1,14 @@
-<div *ngFor="let player of players">{{player.pseudo}}: {{player.score}}</div>
+<div *ngFor="let player of players" [ngPlural]="player.score">
+  <span >{{player.pseudo}}: </span> 
+  <span>{{player.score}} </span>
+  <ng-template ngPluralCase="=0">victoire</ng-template>
+  <ng-template ngPluralCase="=1">victoire</ng-template>
+  <ng-template ngPluralCase="other">victoires</ng-template>
+
+</div>
 <p>{{playingPlayer.pseudo}} joue. Il reste {{ getTokenLeft() }} jetons</p> 
-<button type="button" class="btn btn-info" 
-        (click)="openModal(playAgainTemplate)">Create template modal</button>
+
+
 <div class="container board">
   <div class="row" *ngFor="let row of board">
     <div class="col-sm board__cell" 
@@ -9,20 +16,27 @@
         (click)="addToken(cell)"
         (mouseenter)="highlightActiveColumn(cell)" 
         [ngClass]="{'board__cell-active': cell.col === highlightedColumn}">
-      <app-token *ngIf="cell.hasToken"></app-token>
+      <app-token *ngIf="cell.hasToken" (valueChange)="updatePlayingPlayer($event)"></app-token>
     </div>
   </div>
 </div>
 
+
 <ng-template #playAgainTemplate>
   <div class="modal-header">
-      <h4 class="modal-title pull-left">Machin a gagné.</h4>
-      <button type="button" class="close pull-right" 
-              aria-label="Close" (click)="modalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+    <div [ngSwitch]="victoryCase">
+      <div *ngSwitchCase="VictoryCase.Win">
+        <h4 class="modal-title pull-left">{{ winner.pseudo }} a gagné !</h4>
+      </div>
+      <div *ngSwitchCase="VictoryCase.Draw">
+        <h4 class="modal-title pull-left">Egalité !</h4>
+      </div>
+    </div>
   </div>
   <div class="modal-body">
-      Voulez-vous recommencer ?
+      <div *ngFor="let player of players">Score {{player.pseudo}}: {{player.score}}</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="confirm()" >Recommencer</button>
   </div>
 </ng-template>

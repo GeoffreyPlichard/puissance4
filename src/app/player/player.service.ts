@@ -29,6 +29,12 @@ export class PlayerService {
     }
   }
 
+  
+  public initPlayingPlayerTo1() {
+    this.players[0].isPlaying = true;
+    this.players[1].isPlaying = false;
+  }
+
   public switchPlayer() {
     for(let player of this.players) {
       player.isPlaying === true ? player.isPlaying = false : player.isPlaying = true;

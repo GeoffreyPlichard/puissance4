@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
-import { BoardConstants } from './board';
+import { BoardConstants, VictoryCase } from './board';
 import { Player } from '../player/player';
 
 import { BoardService } from './board.service';
@@ -16,24 +16,46 @@ export class BoardComponent implements OnInit {
 
   public board = [];
   public highlightedColumn = "";
+  VictoryCase = VictoryCase;
+  public victoryCase: VictoryCase;
   public playingPlayer: Player;
+  public winner: Player;
   public players;
+
   @ViewChild('playAgainTemplate') playAgainModal: TemplateRef<any>;
   public modalRef: BsModalRef;
+  private modalConfig = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
 
 
+  constructor(private boardService: BoardService, 
+              private playerService: PlayerService, 
+              private modalService: BsModalService) { }
 
-  constructor(private boardService: BoardService, private playerService: PlayerService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
     this.boardService.generateTokensPerColumn(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
     this.players = this.playerService.getPlayers();
     this.playingPlayer = this.playerService.getPlayingPlayer();
+    console.log("INIT", this.playingPlayer);
   }
 
-  public openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, this.modalConfig);
+  }
+
+  updatePlayingPlayer(playingPlayer) {
+    this.playingPlayer = playingPlayer;
+  }
+
+
+  confirm(): void {
+    this.startAgain();
+    this.modalRef.hide();
   }
 
   public addToken(cell) {
@@ -51,7 +73,7 @@ export class BoardComponent implements OnInit {
       this.boardService.removeTokenFromTotal();
       this.boardService.targetedCell = targetedCell;
       this.boardService.playingPlayer = this.playerService.getPlayingPlayer();
-      this.boardService.isEnd();
+      this.isEnd();
     }
 
   }
@@ -69,4 +91,27 @@ export class BoardComponent implements OnInit {
     this.highlightedColumn = cell.col;
   }
 
+
+  /**
+   * Check if the game is over
+   */
+  public isEnd() {
+    if(this.boardService.checkIfPlayerWon()) {
+      this.playingPlayer.score ++;
+      this.winner = this.playingPlayer;
+      this.victoryCase = VictoryCase.Win;
+      this.openModal(this.playAgainModal);
+    } else if(this.boardService.totalTokens <= 0) {
+      this.victoryCase = VictoryCase.Draw;
+      this.openModal(this.playAgainModal);
+    }
+  }
+
+  public startAgain() {
+    this.board = this.boardService.generateBoard(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
+    this.boardService.generateTokensPerColumn(BoardConstants.BOARD_ROWS, BoardConstants.BOARD_COLUMNS);
+    this.boardService.totalTokens = BoardConstants.BOARD_TOKENS;
+    this.playerService.initPlayingPlayerTo1();
+    this.playingPlayer = this.playerService.getPlayingPlayer();
+  }
 }

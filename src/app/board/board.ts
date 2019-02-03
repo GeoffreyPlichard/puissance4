@@ -6,16 +6,15 @@ export class BoardConstants {
     public static get BOARD_TOKENS(): number { return 42 }
 }
 
-export interface Board {
-}
-
-
 export class Cell {
 
     public hasToken: boolean = false;
     public player: Player;
 
-    constructor(public col: string, public x: number, public y: number) {
+    constructor(public col: string, public x: number, public y: number) {}
+}
 
-    }
+export enum VictoryCase {
+    Draw,
+    Win
 }
