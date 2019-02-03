@@ -1,4 +1,9 @@
 .token {
+    position: absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
     margin: 0 auto;
     background-color: blue;
     width: 40px;
@@ -12,4 +17,15 @@
     &-yellow {
         background-color: yellow;
     }
+
+    &-move {
+        animation-name: example;
+        animation-duration: .3s;
+        animation-timing-function: ease-in;
+    }
 }
+
+@keyframes example {
+    from {top: -500%;}
+    to {top: 0;}
+  }

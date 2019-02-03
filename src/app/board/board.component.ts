@@ -61,10 +61,10 @@ export class BoardComponent implements OnInit {
   public addToken(cell) {
     let targetedColumn = cell.x;
     let tokensLeftForTargetedColumn = this.boardService.tokensPerColumn;
-    let targetedCell = this.board[tokensLeftForTargetedColumn[targetedColumn] - 1][targetedColumn];
-
+    
     // Check if the column is not full
     if(tokensLeftForTargetedColumn[targetedColumn] > 0) {
+      let targetedCell = this.board[tokensLeftForTargetedColumn[targetedColumn] - 1][targetedColumn];
       targetedCell.hasToken = true;
       this.playingPlayer = this.playerService.getPlayingPlayer();
       targetedCell.player = this.playingPlayer;

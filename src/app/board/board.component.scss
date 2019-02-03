@@ -1,5 +1,6 @@
 .board {
     cursor: pointer;
+    overflow: hidden;
 
     &__cell {
         padding: 20px;
