@@ -5,10 +5,11 @@
     overflow: hidden;
     background-color: $board-color;
     border-radius: 3px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
     &__cell {
-        padding: 20px;
-        height: 80px;
+        padding: 2rem;
         
         &-active {
             background-color: #ccc;
@@ -18,12 +19,54 @@
     &__token-hole {
         background-color: #fff;
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        width: 6rem;
+        height: 6rem;
         margin: 0 auto;
     }
 }
 
-.active-player {
-    font-weight: bold;
+.score {
+
+    &__player {
+
+        &-pseudo {
+            font-weight: bold;
+        }
+
+        &-score{
+            padding: .5rem 1rem;
+        }
+
+        &-red {
+            color: $color-red;
+        }
+
+        &-yellow {
+            color: $color-yellow-dark;
+        }
+    }
+}
+
+.total-tokens {
+    background-color: #fff;
+    height: 7rem;
+    width: 7rem;
+    position: absolute;
+    top: 2rem;
+    right: 6rem;
+    border-radius: 50%;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    &__number {
+        display: inline-block;
+        font-weight: bold;
+        margin-top: 1.9rem;
+        font-size: 2rem;
+        color: $color-grey-dark-2;
+    }
+}
+
+.modal-footer .btn{
+    font-size: 1.5rem;
 }

@@ -1,12 +1,23 @@
-<div *ngFor="let player of players" [ngPlural]="player.score">
-  <span >{{player.pseudo}}: </span> 
-  <span>{{player.score}} </span>
-  <ng-template ngPluralCase="=0">victoire</ng-template>
-  <ng-template ngPluralCase="=1">victoire</ng-template>
-  <ng-template ngPluralCase="other">victoires</ng-template>
-
+<div class="total-tokens">
+  <span class="total-tokens__number">
+    {{ getTokenLeft() }}
+  </span>
 </div>
-<p>{{playingPlayer.pseudo}} joue. Il reste {{ getTokenLeft() }} jetons</p> 
+<div class="container">
+  <div class="row" class="text-center">
+      <h2 class="heading-secondary">{{playingPlayer.pseudo}}</h2>
+  </div>
+  <div class="row score">
+    <div *ngFor="let player of players; let i = index" [ngPlural]="player.score" class="col-sm-6" [ngClass]="{'text-right': i===1}">
+      <span [ngClass]="player.color === 'r' ? 'score__player-red' : 'score__player-yellow'" class="score__player-pseudo">{{player.pseudo}}    </span> 
+      <span class="score__player-score badge badge-secondary">{{player.score}}
+        <ng-template ngPluralCase="=0">victoire</ng-template>
+        <ng-template ngPluralCase="=1">victoire</ng-template>
+        <ng-template ngPluralCase="other">victoires</ng-template>
+      </span>
+    </div>
+  </div>
+</div>
 
 
 <div class="container board">

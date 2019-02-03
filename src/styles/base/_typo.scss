@@ -1,0 +1,24 @@
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    color: $color-grey-dark-3;
+}
+
+.heading-primary {
+    display: inline-block;
+    padding: 1rem;
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 1rem;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, $color-yellow, $color-red);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+.heading-secondary {
+    color: $color-grey-dark-2;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: .5rem;
+}
