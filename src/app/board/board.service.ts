@@ -65,6 +65,15 @@ export class BoardService {
 
       // We loop 3 times to check 3 levels around the current cell
       for(let i = 1; i <=3; i++) {
+        // In case we found already 2 tokens in the 1st loop, we do only 2 loops
+        // TODO Find a better way to fix this case
+        if(i === 2) {
+          for(let token in playerTokens) {
+            if(playerTokens[token] === 2) {
+              i = 4;
+            }
+          }
+        }
         this.checkLeft(this.targetedCell, playerTokens, i);
         this.checkLeftDown(this.targetedCell, playerTokens, i);
         this.checkRightDown(this.targetedCell, playerTokens, i);
@@ -178,7 +187,6 @@ export class BoardService {
       }
     }
   }
-
 
   /**
    * Check the player number of tokens
